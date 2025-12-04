@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+  <%- include('partials/head', { titulo: "Ticket" }) %>
+<body>
+    <section class="container">
+        <div class="card shadow-lg mt-3">
+            <div class="card-header text-center bg-light">
+                <h2 class="text-danger fw-bold m-0">¡Compra Exitosa!</h2>
+            </div>
+            <div class="card-body p-4">
+                <div class="bg-light p-3 rounded mb-4">
+                    <dl class="row m-0">
+                        <dt class="col-6 fw-bold">Ticket #:</dt>
+                        <dd class="col-6"><%= ticket.id %></dd>
+                        <dt class="col-6 fw-bold">Fecha:</dt>
+                        <dd class="col-6"><%= ticket.fecha ?? ticket.createdAt %></dd>
+                        <dt class="col-6 fw-bold">Cliente:</dt>
+                        <dd class="col-6"><%= ticket.nombreCliente %></dd>
+                    </dl>
+                </div>
+
+                <div class="mb-4">
+                    <h5 class="fw-semibold mb-3">Productos Comprados</h5>
+                    <% ticket.items.forEach(item => { %>
+                        <%- include('partials/ticketItem', { item }) %>
+                    <% }) %>
+                </div>
+
+                <div class="border-top pt-3 mb-4">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h4 class="fw-bold m-0">TOTAL:</h4>
+                        <h4 class="text-success fw-bold m-0">$<%= ticket.total.toLocaleString() %></h4>
+                    </div>
+                </div>
+    
+                <%- include('partials/ticketActions', { ticket }) %>
+            </div>
+        </div>
+    </section>
+    <script src="/admin/public/ticket.js"></script>
+</body>
+</html>
